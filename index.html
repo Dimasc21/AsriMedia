@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendidikan Anti Korupsi: Berani Jujur Hebat!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Integrity (Warm Neutrals with Blue/Green/Orange Accents) -->
+    <!-- Application Structure Plan: A thematic, single-page scrolling application designed for exploration. The structure flows from understanding the problem (What, Why, How) to empowerment (What can we do). It starts with a strong hero section, moves to defining corruption with interactive cards, visualizes the impact with a chart, uses tabs to explain different types, highlights modern digital traps, and finishes with an actionable toolkit and inspirational figures. This non-linear, thematic flow is more engaging for a web experience than a rigid slide-by-slide format, encouraging students to explore topics at their own pace. -->
+    <!-- Visualization & Content Choices: 
+        - Dampak Korupsi -> Goal: Compare -> Viz: Bar Chart (Chart.js) to quantitatively show funds 'lost' vs 'used'. Interaction: Tooltips on hover. Justification: A chart provides a stark visual comparison that's more impactful than text alone.
+        - Jenis Korupsi -> Goal: Organize -> Method: Tabbed Interface (HTML/CSS/JS). Interaction: Clicking tabs reveals content. Justification: Prevents information overload by chunking content, making it easier to digest.
+        - Aksi Nyata -> Goal: Empower -> Method: Accordion (HTML/CSS/JS). Interaction: Clicking to expand. Justification: Organizes a long list of actions into a neat, interactive "toolkit".
+        - Other visuals -> Goal: Inform/Organize -> Method: Styled HTML/Tailwind cards and grids. Justification: Clean, modern, and responsive way to present textual and iconic information without relying on static images.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #2c3e50;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #d97706; /* Amber-600 */
+            border-bottom-color: #d97706;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .tab-btn.active {
+            background-color: #d97706;
+            color: white;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#hero" class="font-extrabold text-xl text-amber-600">Generasi Berintegritas</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#definisi" class="nav-link font-semibold pb-1">Definisi</a>
+                <a href="#dampak" class="nav-link font-semibold pb-1">Dampak</a>
+                <a href="#jenis" class="nav-link font-semibold pb-1">Modus</a>
+                <a href="#aksi" class="nav-link font-semibold pb-1">Aksi Kita</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl">☰</button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white p-4">
+            <a href="#definisi" class="block py-2 text-center font-semibold">Definisi</a>
+            <a href="#dampak" class="block py-2 text-center font-semibold">Dampak</a>
+            <a href="#jenis" class="block py-2 text-center font-semibold">Modus</a>
+            <a href="#aksi" class="block py-2 text-center font-semibold">Aksi Kita</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="min-h-screen flex items-center bg-stone-100">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">Berani Jujur, Hebat!</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Membongkar Korupsi dan Membangun Masa Depan Bangsa yang Bersih, Mulai dari Diri Sendiri dan Lingkungan Sekolah.</p>
+                <a href="#definisi" class="mt-8 inline-block bg-amber-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-amber-700 transition-colors">Mulai Jelajahi</a>
+            </div>
+        </section>
+
+        <section id="definisi" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Apa Itu Korupsi?</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Korupsi bukan cuma soal uang negara. Ini adalah "virus" perusak kepercayaan yang bisa muncul dalam tindakan sehari-hari.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                        <div class="text-4xl mb-4">💰</div>
+                        <h3 class="font-bold text-xl mb-2">Penyalahgunaan Wewenang</h3>
+                        <p class="text-gray-600">Menggunakan jabatan atau posisi untuk keuntungan pribadi, merugikan orang lain atau institusi.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                        <div class="text-4xl mb-4">🤝</div>
+                        <h3 class="font-bold text-xl mb-2">Rusaknya Kepercayaan</h3>
+                        <p class="text-gray-600">Ketika amanah dilanggar, sistem yang adil menjadi mustahil. Ini adalah inti dari segala bentuk korupsi.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                        <div class="text-4xl mb-4">📝</div>
+                        <h3 class="font-bold text-xl mb-2">Contoh di Sekolah</h3>
+                        <p class="text-gray-600">Menyontek, titip absen, memalsukan izin, atau pungli kecil adalah bibit perilaku koruptif di masa depan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="dampak" class="py-20 bg-stone-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Bahaya Mengintai: Dampak Nyata Korupsi</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Lihat bagaimana korupsi menggerogoti dana yang seharusnya menjadi hak kita semua. Angka berikut adalah ilustrasi alokasi dana pembangunan.</p>
+                </div>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-xl">
+                    <div class="chart-container">
+                        <canvas id="dampakKorupsiChart"></canvas>
+                    </div>
+                </div>
+                 <p class="text-center text-gray-500 mt-4 text-sm">Arahkan kursor ke grafik untuk melihat detail.</p>
+            </div>
+        </section>
+
+        <section id="jenis" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Kenali Modusnya</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Korupsi punya banyak wajah. Kenali bentuk-bentuknya agar kamu bisa waspada dan menghindarinya.</p>
+                </div>
+                <div>
+                    <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                        <button class="tab-btn py-2 px-4 rounded-full font-semibold transition-colors active" data-tab="suap">Penyuapan</button>
+                        <button class="tab-btn py-2 px-4 rounded-full font-semibold transition-colors" data-tab="gelap">Penggelapan</button>
+                        <button class="tab-btn py-2 px-4 rounded-full font-semibold transition-colors" data-tab="peras">Pemerasan</button>
+                        <button class="tab-btn py-2 px-4 rounded-full font-semibold transition-colors" data-tab="gratifikasi">Gratifikasi</button>
+                        <button class="tab-btn py-2 px-4 rounded-full font-semibold transition-colors" data-tab="digital">Jebakan Digital</button>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg min-h-[200px]">
+                        <div class="tab-content" id="suap">
+                            <h3 class="text-2xl font-bold mb-2">Penyuapan</h3>
+                            <p class="text-gray-600">Memberi "uang pelicin" atau hadiah agar urusan lancar, menang tender, atau mendapat perlakuan khusus. Ini adalah modus paling umum dan merusak keadilan.</p>
+                        </div>
+                        <div class="tab-content hidden" id="gelap">
+                            <h3 class="text-2xl font-bold mb-2">Penggelapan dalam Jabatan</h3>
+                            <p class="text-gray-600">Mengambil atau menggunakan dana/aset yang dipercayakan untuk kepentingan pribadi. Contoh: Bendahara OSIS memakai uang kas untuk jajan.</p>
+                        </div>
+                        <div class="tab-content hidden" id="peras">
+                            <h3 class="text-2xl font-bold mb-2">Pemerasan</h3>
+                            <p class="text-gray-600">Memaksa seseorang memberikan sesuatu dengan ancaman. Contoh: Senior yang meminta uang dari junior dengan ancaman kekerasan.</p>
+                        </div>
+                        <div class="tab-content hidden" id="gratifikasi">
+                           <h3 class="text-2xl font-bold mb-2">Gratifikasi Ilegal</h3>
+                           <p class="text-gray-600">Pemberian hadiah kepada pejabat/petugas yang berhubungan dengan jabatannya dan berlawanan dengan kewajibannya. Dianggap "suap yang terselubung".</p>
+                        </div>
+                        <div class="tab-content hidden" id="digital">
+                           <h3 class="text-2xl font-bold mb-2">Korupsi di Era Digital</h3>
+                           <p class="text-gray-600">Tidak selalu tentang uang negara. Joki ujian online, plagiarisme digital dari internet, hingga penipuan berkedok investasi bodong adalah bentuk korupsi modern yang merusak integritas dan merugikan orang lain.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="aksi" class="py-20 bg-stone-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Jadilah Agen Perubahan!</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Perubahan besar dimulai dari langkah kecil. Berikut adalah aksi nyata yang bisa kamu lakukan sekarang juga.</p>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <div class="accordion-item bg-white rounded-lg shadow-md mb-4">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-lg flex justify-between items-center">
+                            Mulai dari Diri Sendiri
+                            <span class="text-xl transition-transform transform">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-600">Komitmen untuk selalu jujur dalam ujian, tidak titip absen, mengembalikan barang temuan, dan mengakui kesalahan. Integritas adalah kebiasaan yang harus dilatih setiap hari.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white rounded-lg shadow-md mb-4">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-lg flex justify-between items-center">
+                            Berani Bilang "TIDAK"
+                            <span class="text-xl transition-transform transform">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-600">Tolak dengan tegas ajakan untuk menyontek, membolos, atau melakukan kecurangan lainnya. Menjadi berbeda demi kebenaran itu keren!</p>
+                        </div>
+                    </div>
+                     <div class="accordion-item bg-white rounded-lg shadow-md mb-4">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-lg flex justify-between items-center">
+                            Gunakan Medsos untuk Kebaikan
+                            <span class="text-xl transition-transform transform">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-600">Buat konten kreatif seperti video pendek, poster digital, atau meme tentang bahaya korupsi dan pentingnya kejujuran. Sebarkan pesan positif ke teman-temanmu.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white rounded-lg shadow-md mb-4">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-lg flex justify-between items-center">
+                            Buat Aksi di Sekolah
+                            <span class="text-xl transition-transform transform">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p class="p-5 pt-0 text-gray-600">Usulkan program "Pojok Kejujuran", adakan diskusi atau debat sehat tentang isu korupsi, atau buat kampanye anti-menyontek di lingkungan sekolahmu bersama OSIS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="inspirasi" class="py-20">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-3">Tokoh Inspiratif</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Mereka adalah bukti bahwa integritas dan keberanian bukanlah hal yang mustahil.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center">
+                        <img src="https://placehold.co/100x100/e2e8f0/4a5568?text=BL" alt="Baharuddin Lopa" class="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-200">
+                        <h3 class="font-bold text-xl mb-1">Baharuddin Lopa</h3>
+                        <p class="text-amber-600 font-semibold mb-2">Mantan Jaksa Agung</p>
+                        <p class="text-gray-600 italic">"Dikenal sebagai jaksa yang tak kenal kompromi, lurus, dan sangat berani memberantas korupsi tanpa pandang bulu."</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center">
+                        <img src="https://placehold.co/100x100/e2e8f0/4a5568?text=SP" alt="Susi Pudjiastuti" class="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-200">
+                        <h3 class="font-bold text-xl mb-1">Susi Pudjiastuti</h3>
+                        <p class="text-amber-600 font-semibold mb-2">Mantan Menteri Kelautan</p>
+                        <p class="text-gray-600 italic">"Dengan kebijakan tegas dan slogan 'Tenggelamkan!', ia berjuang melindungi sumber daya laut Indonesia dari pencurian dan praktik ilegal."</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center">
+                        <img src="https://placehold.co/100x100/e2e8f0/4a5568?text=Anda" alt="Kamu Berikutnya" class="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-200">
+                        <h3 class="font-bold text-xl mb-1">Kamu Berikutnya!</h3>
+                        <p class="text-amber-600 font-semibold mb-2">Siswa SMK Berintegritas</p>
+                        <p class="text-gray-600 italic">"Dengan kejujuran dan keberanianmu hari ini, kamulah yang akan menjadi pahlawan anti-korupsi di masa depan."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold mb-2">#GenerasiAntiKorupsi</h3>
+            <p>Masa depan bangsa ada di tangan kita. Jadilah bagian dari solusi, bukan masalah.</p>
+            <p class="text-sm text-gray-400 mt-6">&copy; 2025 Program Pendidikan Anti Korupsi. Dibuat untuk tujuan pendidikan.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Chart.js: Dampak Korupsi
+            const ctx = document.getElementById('dampakKorupsiChart').getContext('2d');
+            const dampakKorupsiChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pendidikan', 'Kesehatan', 'Infrastruktur Jalan'],
+                    datasets: [{
+                        label: 'Dana yang Seharusnya Digunakan',
+                        data: [100, 100, 100],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        stack: 'Stack 0',
+                    }, {
+                        label: 'Dana yang Hilang Akibat Korupsi (Ilustrasi)',
+                        data: [-35, -40, -50], // Negative values for visual "loss"
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        stack: 'Stack 0',
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Ilustrasi Alokasi Dana vs Kerugian Akibat Korupsi (%)'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += Math.abs(context.parsed.x) + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return Math.abs(value) + '%';
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                        }
+                    }
+                }
+            });
+
+            // Tabs: Jenis Korupsi
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Accordion: Aksi Nyata
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('span');
+
+                    // Close other accordions
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        if (c !== content && c.style.maxHeight) {
+                            c.style.maxHeight = null;
+                            c.previousElementSibling.querySelector('span').classList.remove('rotate-45');
+                        }
+                    });
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.classList.remove('rotate-45');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.classList.add('rotate-45');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
